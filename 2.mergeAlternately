@@ -1,0 +1,26 @@
+class Solution {
+    public String mergeAlternately(String word1, String word2) {
+        // Get lengths of both strings
+        int l1 = word1.length();
+        int l2 = word2.length();
+        
+        // Initialize two pointers for each string
+        int i = 0, j = 0;
+        
+        // Use StringBuilder for efficient string concatenation
+        StringBuilder res = new StringBuilder();
+   
+        // Loop until both strings are fully traversed
+        while (i < l1 || j < l2) {
+            
+            // If characters remain in word1, append next character
+            if (i < l1) res.append(word1.charAt(i++));
+            
+            // If characters remain in word2, append next character
+            if (j < l2) res.append(word2.charAt(j++));
+        }
+ 
+        // Convert StringBuilder to String and return result
+        return res.toString(); 
+    }
+}
