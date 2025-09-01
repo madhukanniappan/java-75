@@ -1,0 +1,23 @@
+
+class Solution {
+    public String reverseWords(String s) {
+        // Trim leading/trailing spaces and split the string by one or more whitespace characters
+        String[] words = s.trim().split("\\s+");
+
+        // Use StringBuilder for efficient string concatenation
+        StringBuilder res = new StringBuilder();
+
+        // Iterate over the words array in reverse order
+        for(int i = words.length - 1; i >= 0; i--) {
+            res.append(words[i]); // Append the current word
+
+            // Add a space after the word if it's not the last one
+            if(i != 0){
+                res.append(" ");
+            }
+        }
+
+        // Convert StringBuilder to String and return the result
+        return res.toString();
+    }
+}
