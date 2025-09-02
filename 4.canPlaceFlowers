@@ -1,0 +1,29 @@
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int len = flowerbed.length;  // length of the flowerbed
+        int i = 0;                   // pointer to scan each position
+
+        // Keep going while we still need to place flowers (n != 0) 
+        // and haven't reached the end of flowerbed
+        while (n != 0 && i < len) {
+            // Check only if current spot is empty
+            if (flowerbed[i] == 0) {
+                // Left neighbor: if i == 0 (first slot), treat as empty (0)
+                int left = (i == 0) ? 0 : flowerbed[i - 1];
+                
+                // Right neighbor: if i == len-1 (last slot), treat as empty (0)
+                int right = (i == len - 1) ? 0 : flowerbed[i + 1];
+
+                // Place flower if both neighbors are empty
+                if (left == 0 && right == 0) {
+                    flowerbed[i] = 1; // mark current as planted
+                    n--;              // one flower successfully placed
+                }
+            }
+            i++; // move to next spot
+        }
+
+        // If we placed all required flowers, return true
+        return n == 0;
+    }
+}
