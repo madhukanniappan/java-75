@@ -1,0 +1,22 @@
+class Solution {
+    // Function to calculate GCD (Greatest Common Divisor) of two numbers using Euclidean Algorithm
+    public static int gcd(int a, int b) {
+        if (b == 0) return a;  // Base case: if second number becomes 0, return first number as GCD
+        else
+            return gcd(b, a % b);  // Recursive call with (b, a % b)
+    }
+
+    // Function to find the greatest common divisor (GCD) string of two input strings
+    public String gcdOfStrings(String str1, String str2) {
+        // If concatenating in both orders gives different results, no common divisor string exists
+        if (!(str1 + str2).equals(str2 + str1)) { 
+            return "";
+        } else {
+            // Find the GCD of the lengths of the two strings
+            int gcdlen = gcd(str1.length(), str2.length());
+            
+            // The substring from 0 to gcdlen of str1 is the GCD string
+            return str1.substring(0, gcdlen);
+        }
+    }
+}
