@@ -1,0 +1,63 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int len = nums.length;
+        int[] l = new int[len];
+        int[] r = new int[len];
+
+        int lside = 1;
+        int rside = 1;
+
+        // Step 1: Build prefix product (left side)
+        for (int i = 0; i < len; i++) {
+            l[i] = (i == 0) ? lside : l[i - 1] * nums[i - 1];
+        }
+
+        // Step 2: Build suffix product (right side)
+        for (int i = len - 1; i >= 0; i--) {
+            r[i] = (i == len - 1) ? rside : r[i + 1] * nums[i + 1];
+
+            // ❌ Mistake in your old code:
+            // nums[i] = l[i] * r[i];   // WRONG → this overwrote nums[]
+            // while you were still using nums[] to calculate r[]
+        }
+
+        // ✅ Fix: Do the multiplication in a SEPARATE loop
+        // after both l[] and r[] are fully built
+        for (int i = 0; i < len; i++) {
+            nums[i] = l[i] * r[i];
+        }
+
+        return nums;
+    }
+}
+
+(or)
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> res(n);
+
+        int lp = 1; // left product
+        int rp = 1; // right product
+
+        // Step 1: initialize first element of res
+        res[0] = 1;
+
+        // Step 2: Build prefix product (left product for each index)
+        for (int i = 1; i < n; i++) {
+            lp = lp * nums[i - 1];   // product of all nums before i
+            res[i] = lp;            // store left product in res[i]
+        }
+
+        // Step 3: Traverse from right side and multiply suffix product
+        for (int i = n - 2; i >= 0; i--) {
+            rp = rp * nums[i + 1];   // product of all nums after i
+            res[i] = res[i] * rp;    // multiply left product * right product
+        }
+
+        // Step 4: return result
+        return res;
+    }
+};
