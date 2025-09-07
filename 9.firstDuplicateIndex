@@ -1,0 +1,71 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.LinkedHashMap;
+
+/*
+Question:
+Given an array of integers, find the index of the 
+first element that appears more than once (duplicate).
+If no duplicate exists, return -1.
+
+Example:
+Input: arr = [-1, 0, 2, 0, -1, 2]
+Output: 0
+Explanation: The first duplicate is -1, 
+and its first occurrence is at index 0.
+*/
+
+public class Q1 {
+    // Function to return the index of first duplicate element
+    public static int firstDuplicateIndex(int[] arr, int n) {
+        Map<Integer, Integer> map = new LinkedHashMap<>();
+        Integer v = null; // To store the first duplicate number
+
+        // Step 1: Count frequency of each element
+        for (int i : arr) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
+        }
+
+        // Step 2: Find the first number that appears more than once
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+            if (value > 1) { // duplicate found
+                v = key;
+                break; // stop at first duplicate
+            }
+        }
+
+        // Step 3: If duplicate found, return its first index
+        if (v != null) {
+            for (int i = 0; i < n; i++) {
+                if (arr[i] == v) {
+                    return i; // first occurrence index
+                }
+            }
+        }
+
+        // Step 4: No duplicate found
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input size of array
+        System.out.print("Enter size of array n: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        // Input elements
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Output result
+        System.out.println(firstDuplicateIndex(arr, n));
+    }
+}
