@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class Q1 {
+
+    /**
+     * QUESTION:
+     * Given an array of strings, and a query string q,
+     * return all the strings from the array that start with q.
+     *
+     * Example 1:
+     * Input:
+     *   arr = ["apple", "app", "banana", "april", "cat"]
+     *   q = "ap"
+     * Output:
+     *   ["apple", "app", "april"]
+     *
+     * Example 2 (YOUR CASE):
+     * Input:
+     *   arr = ["jackson", "jacques", "jack", "jackma"]
+     *   q = "jack"
+     * Output:
+     *   ["jackson", "jackma"]
+     *
+     * Explanation:
+     * - "jackson" starts with "jack"
+     * - "jackma" starts with "jack"
+     * - "jacques" does not start with "jack"
+     * - "jack" is exactly equal to "jack", but since its length == query length,
+     *   and the program checks only for strings longer than query,
+     *   it is excluded from result.
+     */
+
+    public static ArrayList<String> sameprefix(String[] arr, String q) {
+        ArrayList<String> res = new ArrayList<>();
+        int len = q.length();
+
+        // Iterate over each string in array
+        for (String i : arr) {
+            // Only check strings longer or equal to prefix length
+            if (i.length() > len) {
+                String substr = i.substring(0, len); // prefix of string
+                if (q.equals(substr)) {              // if prefix matches query
+                    res.add(i);                      // add to result list
+                }
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Step 1: Get size of array
+        System.out.print("Enter size of array n: ");
+        int n = sc.nextInt();
+        sc.nextLine(); // clear buffer
+
+        // Step 2: Read n strings
+        String[] arr = new String[n];
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextLine();
+        }
+
+        // Step 3: Read query string
+        System.out.println("Enter query:");
+        String q = sc.nextLine();
+
+        // Step 4: Print result
+        System.out.println(sameprefix(arr, q));
+    }
+}
