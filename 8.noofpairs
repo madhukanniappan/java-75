@@ -1,0 +1,59 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/*
+Question:
+Given an array of integers and a value k, 
+find the number of pairs of elements whose sum is equal to k.
+
+Example:
+Input: arr = [1,4,2,3,5], k = 5
+Output: 2   // Pairs are (1,4), (2,3)
+*/
+
+public class Q1 {
+    // Function to count number of pairs with sum = k
+    public static int noofpairs(int[] arr, int k) {
+        Map<Integer, Integer> map = new HashMap<>(); // To store frequency of numbers
+        int count = 0; // To count valid pairs
+
+        for (int i : arr) {
+            int complement = k - i; // Find the number needed to form sum = k
+
+            // If complement already exists in map, we found a pair
+            if (map.getOrDefault(complement, 0) > 0) {
+                count++; // Increase count of pairs
+                map.put(complement, map.get(complement) - 1); // Reduce its frequency (as it's used)
+            } 
+            else {
+                // Otherwise, store current number in map
+                map.put(i, map.getOrDefault(i, 0) + 1);
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Take input for k
+        System.out.print("Enter value of k: ");
+        int k = sc.nextInt();
+
+        // Take input for array size
+        System.out.print("Enter size of array n: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        // Take array elements
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Print the result
+        System.out.println(noofpairs(arr, k));
+    }
+}
