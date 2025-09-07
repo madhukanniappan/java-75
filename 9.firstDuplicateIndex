@@ -15,7 +15,55 @@ Output: 0
 Explanation: The first duplicate is -1, 
 and its first occurrence is at index 0.
 */
+approach 1
+import java.util.*;
 
+public class Q1 {
+    // Function to return the index of the first repeating element
+    public static int firstRepeatingIndex(int[] arr, int n) {
+        Map<Integer, Integer> map = new LinkedHashMap<>();
+        int minind = Integer.MAX_VALUE; // store the smallest index of duplicate's first occurrence
+
+        for (int i = 0; i < n; i++) {
+            if (map.containsKey(arr[i])) {
+                // element already exists → update minind
+                minind = Math.min(minind, map.get(arr[i]));
+            } else {
+                // store element's first index
+                map.put(arr[i], i);
+            }
+        }
+
+        // If no duplicate found
+        if (minind == Integer.MAX_VALUE) {
+            return -1;
+        }
+
+        return minind;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input size
+        System.out.print("Enter size of array n: ");
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+
+        // Input array
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+
+        // Output result
+        System.out.println(firstRepeatingIndex(arr, n));
+    }
+}
+
+
+approach 2
 public class Q1 {
     // Function to return the index of first duplicate element
     public static int firstDuplicateIndex(int[] arr, int n) {
