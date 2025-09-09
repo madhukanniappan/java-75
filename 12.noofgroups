@@ -1,0 +1,41 @@
+import java.util.*;
+
+/*
+ Question:
+ ----------
+ A factory needs to form groups using specific machine codes: 
+ 'p', 'c', 'm', 'b', and 'z'. 
+ A group can only be formed if it contains at least one of each character.
+ Find out how many complete groups can be formed from a given input string.
+
+ Example:
+ --------
+ Input: "pcmbzpcmpczbm"
+ Output: 2
+
+ Explanation:
+ - We need one 'p','c','m','b','z' to form a group.
+ - Here, characters count = p(3), c(3), m(2), b(2), z(2).
+ - Minimum = 2 → So, we can form 2 complete groups.
+*/
+
+public class Q1 {
+
+    // Function to count minimum number of groups
+    public static int noofgroups(String s) {
+
+        // Convert input string to char array
+        char[] arr = s.toCharArray();
+
+        // Initialize map with all required characters and count = 0
+        Map<Character, Integer> map = new HashMap<>(
+            Map.ofEntries(
+                Map.entry('p', 0),
+                Map.entry('c', 0),
+                Map.entry('m', 0),
+                Map.entry('b', 0),
+                Map.entry('z', 0)
+            )
+        );
+
+        // Count occurrences of characters in the string
