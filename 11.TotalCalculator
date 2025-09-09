@@ -1,0 +1,65 @@
+/*
+ Question:
+ You are given an array of integers `arr[]` of length `n`.
+ You need to calculate a total value `t` as follows:
+
+ - Start with `t = arr[0]`.
+ - Keep track of the minimum value seen so far.
+ - For each element from index 1 to n-1:
+     - Compute (arr[i] - minimum_so_far).
+     - If the result is positive, add it to total.
+     - Otherwise, add 0.
+ - Return the final total.
+
+ Example:
+ arr = [5, 2, 6, 1, 4], n = 5
+
+ Step-by-step:
+   Start: t = 5
+   i=1: min=5 → (2-5)<0 → add 0 → t=5
+   i=2: min=2 → (6-2)=4 → add 4 → t=9
+   i=3: min=2 → (1-2)<0 → add 0 → t=9
+   i=4: min=1 → (4-1)=3 → add 3 → t=12
+
+ Final Answer: 12
+*/
+
+public class TotalCalculator {
+
+    // Method to compute the total
+    public static int total(int[] arr, int n) {
+
+        // Initialize total with first element
+        int t = arr[0];
+
+        // Track minimum so far (start with very large value)
+        int m = Integer.MAX_VALUE;
+
+        // Loop through the array
+        for (int i = 1; i < n; i++) {
+
+            // Update the minimum value seen so far
+            m = Math.min(m, arr[i - 1]);
+
+            // Compute difference with current element
+            int temp = ((arr[i] - m) > 0) ? (arr[i] - m) : 0;
+
+            // Add to total
+            t = t + temp;
+        }
+
+        // Return the final total
+        return t;
+    }
+
+    // Main method with an example
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 6, 1, 4};
+        int n = arr.length;
+
+        int result = total(arr, n);
+
+        System.out.println("Input: [5, 2, 6, 1, 4]");
+        System.out.println("Output: " + result); // Expected: 12
+    }
+}
